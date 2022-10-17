@@ -7,6 +7,7 @@ use App\Models\Container;
 use App\Models\Envio;
 use App\Models\Lead;
 use App\Models\Mensagem;
+use App\Models\Transacao;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
@@ -18,34 +19,20 @@ class AdminController extends Controller
 {
     public function index()
     {
+        $ultimas_transacoes = Transacao::leftjoin('projetos', 'transacoes.projeto_id', '=', 'projetos.id')
+            ->selectRaw('transacoes.*, projetos.nome as projeto')
+            ->orderBy('id', 'DESC')
+            ->take(20)->get();
 
-        $leads = Lead::whereNull('user_id')->get();
+        $total_transacoes = Transacao::selectRaw("transacoes.*, DATE(created_at) as date, SUM(if(transacoes.tipo = 'ENTRADA', transacoes.valor, 0)) AS entradas, SUM(if(transacoes.tipo = 'SAIDA', transacoes.valor, 0)) AS saidas")
+            ->groupBy('date')
+            ->first();
 
-        $container = Container::whereUserId(Auth::user()->id)->first();
+        $total_transacoes_hoje = Transacao::whereDate('transacoes.created_at', Carbon::today())
+            ->selectRaw("transacoes.*, SUM(if(transacoes.tag = 'VENDA', 1, 0)) AS total_vendas,  DATE(created_at) as date, SUM(if(transacoes.tipo = 'ENTRADA', transacoes.valor, 0)) AS entradas, SUM(if(transacoes.tipo = 'SAIDA', transacoes.valor, 0)) AS saidas")
+            ->groupBy('date')
+            ->first();
 
-        $leads_recebidos = Lead::whereDate('created_at', Carbon::today())->where('origem_lead', '!=', 'CADASTRO MANUAL')->count();
-        $leads_hoje = Lead::whereDate('created_at', Carbon::today())->count();
-        $positivos = Lead::whereDate('created_at', Carbon::today())->whereAvaliacao('POSITIVA')->count();
-        $negativos = Lead::whereDate('created_at', Carbon::today())->whereAvaliacao('NEGATIVA')->count();
-
-        $total_usuarios = Container::all()->count();
-
-        $corretores = User::whereHas(
-            'roles',
-            function ($q) {
-                $q->where('name', 'user');
-            }
-        )->get();
-
-        return view('admin.index', [
-            "my_container" => $container,
-            "total_usuarios" => $total_usuarios,
-            "leads_recebidos" => $leads_recebidos,
-            "leads_hoje" => $leads_hoje,
-            "leads" => $leads,
-            "positivos" => $positivos,
-            "negativos" => $negativos,
-            "corretores" => $corretores,
-        ]);
+        return view('user.index', ["ultimas_transacoes" => $ultimas_transacoes, "transacoes" => $total_transacoes, "transacoes_hoje" => $total_transacoes_hoje]);
     }
 }
