@@ -18,6 +18,12 @@ use Illuminate\Support\Facades\Auth;
 Route::group(['middleware' => ['role:user']], function () {
     Route::prefix('user')->group(function () {
 
+        // RELATÓRIO SEARCH
+        Route::post('/relatorio/search', [App\Http\Controllers\User\RelatorioController::class, 'search']);
+
+        // RELATÓRIO
+        Route::get('/relatorio', [App\Http\Controllers\User\RelatorioController::class, 'index']);
+
         // TRANSAÇÕES STORE
         Route::post('/transacoes/store', [App\Http\Controllers\User\TransacaoController::class, 'store']);
 

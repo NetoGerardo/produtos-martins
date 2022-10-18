@@ -82,6 +82,14 @@
                         <span class="menu-title">Categorias</span>
                     </a>
                 </li>
+                <li class="nav-item menu-items">
+                    <a class="nav-link" href="/user/relatorio">
+                        <span class="menu-icon">
+                            <i class="mdi mdi-alphabetical"></i>
+                        </span>
+                        <span class="menu-title">Relatório</span>
+                    </a>
+                </li>
             </ul>
         </nav>
 

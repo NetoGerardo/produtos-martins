@@ -5,14 +5,7 @@
 @endsection
 
 @section('content')
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <user-relatorio :leads="{{ json_encode($leads) }}" />
-            </div>
-        </div>
-    </div>
+<div>
+    <user-relatorio :transacoes="{{ json_encode($transacoes) }}" :soma_transacoes="{{ json_encode($soma_transacoes) }}" />
 </div>
-
 @endsection
