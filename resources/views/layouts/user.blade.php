@@ -127,14 +127,25 @@
                                     </div>
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a data-toggle="modal" data-target="#nova-transacao-modal" class="dropdown-item preview-item">
+                                <a data-toggle="modal" data-target="#nova-transacao-modal" class="dropdown-item preview-item" data-toggle="modal" data-target="#login-modal">
                                     <div class="preview-thumbnail">
                                         <div class="preview-icon bg-dark rounded-circle">
-                                            <i class="mdi mdi-layers text-primary"></i>
+                                            <i class="mdi mdi-currency-usd text-primary"></i>
                                         </div>
                                     </div>
                                     <div class="preview-item-content">
-                                        <p class="preview-subject ellipsis mb-1">Nova Retirada</p>
+                                        <p class="preview-subject ellipsis mb-1">Nova Transação</p>
+                                    </div>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a data-toggle="modal" data-target="#nova-retirada-modal" class="dropdown-item preview-item">
+                                    <div class="preview-thumbnail">
+                                        <div class="preview-icon bg-dark rounded-circle">
+                                            <i class="mdi mdi-layers text-danger"></i>
+                                        </div>
+                                    </div>
+                                    <div class="preview-item-content">
+                                        <p class="preview-subject ellipsis mb-1">Registrar Saída</p>
                                     </div>
                                 </a>
                                 <div class="dropdown-divider"></div>
@@ -177,6 +188,9 @@
                         @yield('content')
                         <div>
                             <nova-venda />
+                        </div>
+                        <div>
+                            <nova-retirada />
                         </div>
                         <div>
                             <nova-transacao />

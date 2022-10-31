@@ -6,6 +6,6 @@
 
 @section('content')
 <div>
-    <user-relatorio :transacoes="{{ json_encode($transacoes) }}" :soma_transacoes="{{ json_encode($soma_transacoes) }}" />
+    <user-relatorio :projetos="{{ json_encode($projetos) }}" :produtos="{{ json_encode($produtos) }}" :transacoes="{{ json_encode($transacoes) }}" :soma_transacoes="{{ json_encode($soma_transacoes) }}" />
 </div>
 @endsection

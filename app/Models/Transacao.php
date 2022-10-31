@@ -20,6 +20,7 @@ class Transacao extends Model
         'tipo',
         'projeto_id',
         'tag',
-        'descricao'
+        'descricao',
+        'venda_id'
     ];
 }

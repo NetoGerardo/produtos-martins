@@ -107,10 +107,13 @@ export default {
   mounted() {
     console.log(this.transacoes);
 
-    this.total_transacoes = this.transacoes.entradas - this.transacoes.saidas;
-    this.vendas_hoje = this.transacoes_hoje.total_vendas;
-    this.entradas = this.transacoes_hoje.entradas;
-    this.saidas = this.transacoes_hoje.saidas;
+    if (this.transacoes) {
+      this.total_transacoes = this.transacoes.entradas - this.transacoes.saidas;
+      this.vendas_hoje = this.transacoes_hoje.total_vendas;
+      this.entradas = this.transacoes_hoje.entradas;
+      this.saidas = this.transacoes_hoje.saidas;
+    }
+
   },
 
   methods: {

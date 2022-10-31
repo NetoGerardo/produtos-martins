@@ -58,7 +58,7 @@
         <label>Selecione um Produto</label>
         <select class="form-control" v-model="produto_selecionado" @change="search()">
           <option value=""></option>
-          <option v-for="produto in produtos" :key="produto" :value="projeprodutoto.id">
+          <option v-for="produto in produtos" :key="produto" :value="produto.id">
             {{ produto.nome }}
           </option>
         </select>
@@ -216,7 +216,7 @@ export default {
 
   components: { Loading },
 
-  props: ['soma_transacoes', 'transacoes', 'projetos'],
+  props: ['soma_transacoes', 'transacoes', 'projetos', 'produtos'],
 
   data() {
     return {
@@ -315,7 +315,8 @@ export default {
       let data = {
         data_inicio: aux_dataInicio,
         data_fim: aux_dataFim,
-        projeto_id: this.projeto_selecionado
+        projeto_id: this.projeto_selecionado,
+        produto_id: this.produto_selecionado
       }
 
       console.log("Enviando");

@@ -21,7 +21,7 @@ class VendaController extends Controller
         $produto = Produto::find($request->produto_id);
 
         if ($produto->quantidade_disponivel >= $request->quantidade) {
-            Venda::create([
+            $venda = Venda::create([
                 'quantidade' => $request->quantidade,
                 'comprador' => $request->comprador,
                 'valor_venda' => $request->valor_venda,
@@ -37,6 +37,7 @@ class VendaController extends Controller
                 'tag' => 'Venda',
                 'projeto_id' => $produto->projeto_id,
                 'descricao' => $descricao,
+                'venda_id' => $venda->id
             ]);
 
             $produto->quantidade_disponivel = $produto->quantidade_disponivel - $request->quantidade;

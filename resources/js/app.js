@@ -17,7 +17,9 @@ import ListarProdutos from "./components/produto/ListarProdutos.vue";
 import NovaVenda from "./components/venda/NovaVenda.vue";
 import ListarVendas from "./components/venda/ListarVendas.vue";
 import UltimasTransacoes from "./components/user/UltimasTransacoes.vue";
+import NovaRetirada from "./components/transacao/NovaRetirada.vue";
 import NovaTransacao from "./components/transacao/NovaTransacao.vue";
+import Relatorio from "./components/user/Relatorio.vue";
 
 import axios from 'axios';
 import VueAxios from 'vue-axios'
@@ -41,7 +43,9 @@ vue.component('listar-produtos', ListarProdutos)
 vue.component('nova-venda', NovaVenda)
 vue.component('listar-vendas', ListarVendas)
 vue.component('ultimas-transacoes', UltimasTransacoes)
+vue.component('nova-retirada', NovaRetirada)
 vue.component('nova-transacao', NovaTransacao)
+vue.component('user-relatorio', Relatorio)
 
 vue.mount("#app")
 

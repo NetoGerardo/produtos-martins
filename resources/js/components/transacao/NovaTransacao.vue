@@ -20,10 +20,8 @@
                             <div class="form-group">
                                 <label for="user_type">Tag</label>
                                 <select class="form-control" id="user_type" v-model="tag">
-                                    <option value="SAQUE">Saque</option>
-                                    <option value="Custos operacionais">Custos operacionais</option>
-                                    <option value="Pagamento de contas">Pagamento de contas</option>
-                                    <option value="Pagamento de parceiros">Pagamento de parceiros</option>
+                                    <option value="Transação de Venda">Transação de Venda</option>
+                                    <option value="Novo Contrato">Novo Contrato</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -72,7 +70,7 @@ export default {
             descricao: "",
             tipo_produto: "",
             isLoading: false,
-            tipo: "SAIDA",
+            tipo: "ENTRADA",
             tag: "",
             projetos: ""
         };

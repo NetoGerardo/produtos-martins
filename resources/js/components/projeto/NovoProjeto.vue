@@ -2,7 +2,7 @@
     <div>
         <loading v-model:active="isLoading" :can-cancel="false" :is-full-page="true" />
         <button data-toggle="modal" data-target="#login-modal" type="button" class="btn btn-info">
-            Nova Categoria <i class="mdi mdi-plus"></i>
+            Novo Projeto <i class="mdi mdi-plus"></i>
         </button>
 
         <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
