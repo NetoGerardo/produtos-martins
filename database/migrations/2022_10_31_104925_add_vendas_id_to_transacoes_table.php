@@ -17,6 +17,9 @@ return new class extends Migration
 
             $table->foreignId('venda_id')->nullable();
 
+            $table->date('data_vencimento')->nullable();
+            $table->boolean('transacao_paga')->default(0);
+
             $table->foreign('venda_id')->references('id')->on('vendas')
                 ->onUpdate('cascade')->onDelete('cascade');
         });

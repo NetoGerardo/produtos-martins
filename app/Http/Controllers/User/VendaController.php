@@ -37,7 +37,8 @@ class VendaController extends Controller
                 'tag' => 'Venda',
                 'projeto_id' => $produto->projeto_id,
                 'descricao' => $descricao,
-                'venda_id' => $venda->id
+                'venda_id' => $venda->id,
+                'transacao_paga' => 1,
             ]);
 
             $produto->quantidade_disponivel = $produto->quantidade_disponivel - $request->quantidade;

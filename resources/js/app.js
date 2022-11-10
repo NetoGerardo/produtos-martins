@@ -20,6 +20,9 @@ import UltimasTransacoes from "./components/user/UltimasTransacoes.vue";
 import NovaRetirada from "./components/transacao/NovaRetirada.vue";
 import NovaTransacao from "./components/transacao/NovaTransacao.vue";
 import Relatorio from "./components/user/Relatorio.vue";
+import NovaTransacaoRecorrente from "./components/transacoes_recorrentes/NovaTransacaoRecorrente.vue";
+import ListarTransacoesRecorrentes from "./components/transacoes_recorrentes/ListarTransacoesRecorrentes.vue";
+import ListarTransacoesAguardandoPagamento from "./components/transacoes_agardando_pagamento/ListarTransacoesAguardandoPagamento.vue";
 
 import axios from 'axios';
 import VueAxios from 'vue-axios'
@@ -46,6 +49,10 @@ vue.component('ultimas-transacoes', UltimasTransacoes)
 vue.component('nova-retirada', NovaRetirada)
 vue.component('nova-transacao', NovaTransacao)
 vue.component('user-relatorio', Relatorio)
+vue.component('nova-transacao-recorrente', NovaTransacaoRecorrente)
+vue.component('listar-transacoes-recorrente', ListarTransacoesRecorrentes)
+
+vue.component('listar-transacoes-aguardando-pagamento', ListarTransacoesAguardandoPagamento)
 
 vue.mount("#app")
 

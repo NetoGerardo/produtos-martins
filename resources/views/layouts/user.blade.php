@@ -90,6 +90,22 @@
                         <span class="menu-title">Relatório</span>
                     </a>
                 </li>
+                <li class="nav-item menu-items">
+                    <a class="nav-link" href="/user/transacoes_recorrentes">
+                        <span class="menu-icon">
+                            <i class="mdi mdi-alphabetical"></i>
+                        </span>
+                        <span class="menu-title">Recorrência</span>
+                    </a>
+                </li>
+                <li class="nav-item menu-items">
+                    <a class="nav-link" href="/user/transacoes_aguardando">
+                        <span class="menu-icon">
+                            <i class="mdi mdi-alphabetical"></i>
+                        </span>
+                        <span class="menu-title">Aguardando Pagamento</span>
+                    </a>
+                </li>                
             </ul>
         </nav>
 

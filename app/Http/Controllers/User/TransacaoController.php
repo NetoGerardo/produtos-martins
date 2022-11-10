@@ -23,6 +23,7 @@ class TransacaoController extends Controller
             'tipo' => $request->tipo,
             'tag' => $request->tag,
             'projeto_id' => $request->projeto_id,
+            'transacao_paga' => 1,
             'descricao' => $request->descricao,
         ]);
 

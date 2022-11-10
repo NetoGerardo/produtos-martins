@@ -21,6 +21,8 @@ class Transacao extends Model
         'projeto_id',
         'tag',
         'descricao',
-        'venda_id'
+        'venda_id',
+        'data_vencimento',
+        'transacao_paga'
     ];
 }

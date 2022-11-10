@@ -4,9 +4,10 @@ export default {
         handleRemove(title, id, callBackSuccess) {
             this.$swal
                 .fire({
-                    title: title,
+                    title: "<h2 style='color:gray'>" + title + "</h2>",
                     text: "Voce nao poderá reverter essa operação!",
                     icon: "warning",
+                    padding: '1.5em',
                     showCancelButton: true,
                     confirmButtonColor: "#3085d6",
                     cancelButtonColor: "#d33",

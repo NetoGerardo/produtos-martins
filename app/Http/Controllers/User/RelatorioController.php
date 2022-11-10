@@ -26,6 +26,7 @@ class RelatorioController extends Controller
         $transacoes = Transacao::whereDate('transacoes.created_at', Carbon::today())
             ->leftjoin('projetos', 'transacoes.projeto_id', '=', 'projetos.id')
             ->selectRaw('transacoes.*, projetos.nome as projeto')
+            ->where('transacoes.transacao_paga', '=', '1')
             ->orderBy('id', 'DESC')
             ->get();
 
@@ -55,6 +56,7 @@ class RelatorioController extends Controller
         }
 
         $transacoes = $transacoes->whereBetween('transacoes.created_at', [$request->data_inicio, $request->data_fim])
+            ->where('transacoes.transacao_paga', '=', '1')
             ->orderBy('id', 'DESC')
             ->get();
 
@@ -70,6 +72,7 @@ class RelatorioController extends Controller
         }
 
         $soma_transacoes = $soma_transacoes->whereBetween('transacoes.created_at', [$request->data_inicio, $request->data_fim])
+            ->where('transacoes.transacao_paga', '=', '1')
             ->groupBy('date')
             ->first();
 

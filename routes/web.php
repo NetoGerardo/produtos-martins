@@ -19,6 +19,24 @@ Route::group(['middleware' => ['role:user']], function () {
     Route::prefix('user')->group(function () {
 
         // RELATÓRIO SEARCH
+        Route::post('/transacoes_aguardando/confirmar', [App\Http\Controllers\User\TransacoesAguardandoController::class, 'confirmar']);
+
+        // RELATÓRIO SEARCH
+        Route::post('/transacoes_aguardando/delete', [App\Http\Controllers\User\TransacoesAguardandoController::class, 'delete']);
+
+        // RELATÓRIO SEARCH
+        Route::get('/transacoes_aguardando', [App\Http\Controllers\User\TransacoesAguardandoController::class, 'index']);
+
+        // RELATÓRIO SEARCH
+        Route::post('/transacoes_recorrentes/delete', [App\Http\Controllers\User\TransacaoRecorrenteController::class, 'delete']);
+
+        // RELATÓRIO SEARCH
+        Route::post('/transacoes_recorrentes/store', [App\Http\Controllers\User\TransacaoRecorrenteController::class, 'store']);
+
+        // RELATÓRIO SEARCH
+        Route::get('/transacoes_recorrentes', [App\Http\Controllers\User\TransacaoRecorrenteController::class, 'index']);
+
+        // RELATÓRIO SEARCH
         Route::post('/relatorio/search', [App\Http\Controllers\User\RelatorioController::class, 'search']);
 
         // RELATÓRIO
