@@ -63,6 +63,22 @@ class TransacaoRecorrenteController extends Controller
         ], Response::HTTP_OK);
     }
 
+    protected function update(Request $request)
+    {
+
+        $transacao_recorrente = TransacaoRecorrente::find($request->id);
+        $transacao_recorrente->nome = $request->nome;
+        $transacao_recorrente->descricao = $request->descricao;
+        $transacao_recorrente->valor = $request->valor;
+        $transacao_recorrente->tag = $request->tag;
+        $transacao_recorrente->save();
+
+        return response()->json([
+            "success" => true,
+            "msg" => 'Transação atuaizada!',
+        ], Response::HTTP_OK);
+    }
+
     protected function delete(Request $request)
     {
 

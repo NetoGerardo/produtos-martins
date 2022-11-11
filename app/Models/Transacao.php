@@ -23,6 +23,7 @@ class Transacao extends Model
         'descricao',
         'venda_id',
         'data_vencimento',
-        'transacao_paga'
+        'transacao_paga',
+        'created_at'
     ];
 }

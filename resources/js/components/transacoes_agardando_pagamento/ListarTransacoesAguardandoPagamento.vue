@@ -197,7 +197,8 @@
                                                 Deletar
                                                 <i class="fa fa-trash"></i>
                                             </button>
-                                            <button @click="confirmarTransacao(transacao)" type="button"
+                                            <button @click="confirmarTransacao(transacao)" data-toggle="modal"
+                                                data-target="#detalhes-modal" type="button"
                                                 class="btn btn-success btn-sm" style="width:50%">
                                                 Confirmar
                                                 <i class="fa fa-trash"></i>
@@ -211,6 +212,36 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="modal fade" id="detalhes-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <form @submit.prevent>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4>Confirmação de Pagamento</h4>
+                        <br />
+                        <div class="form-group">
+                            <label for="user_type">Data de pagamento</label>
+                            <input class="form-control" id="dataInicio" name="dataInicio" type="date"
+                                v-model="data_pagamento" />
+                        </div>
+
+                        <button class="btn btn-danger btn-flat" data-dismiss="modal">
+                            Cancelar <i class="fa fa-search"></i>
+                        </button>
+
+                        <button class="btn btn-success btn-flat" @click="confirmar()" data-dismiss="modal">
+                            Salvar <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 </template>
   
@@ -241,6 +272,8 @@ export default {
             aux_soma_transacoes: 0,
             produto_selecionado: "",
             projeto_selecionado: "",
+            transacao_selecionada: "",
+            data_pagamento: ""
         };
     },
 
@@ -299,7 +332,6 @@ export default {
 
                     if (indice >= 0) {
                         const element = this.aux_transacoes.splice(indice, 1)[0];
-                        console.log(element);
                     }
 
                 })
@@ -317,50 +349,37 @@ export default {
         },
 
         confirmarTransacao(transacao) {
-            this.$swal
-                .fire({
-                    title: "<h2 style='color:#616060'>Deseja confirmar o pagamento desta transação no valor de <h2 style='color: green'>R$" + transacao.valor + "</h2></h2>",
-                    text: "Voce nao poderá reverter essa operação!",
-                    icon: "warning",
-                    padding: '1.5em',
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Sim, confirmar!"
-                })
-                .then(result => {
-                    if (result.value) {
-                        this.confirmar(transacao);
-                    }
-                });
+            this.transacao_selecionada = transacao;
         },
 
 
-        confirmar(transacao) {
+        confirmar() {
+
+            this.isLoading = true;
 
             let data = {
-                transacao_id: transacao.id
+                transacao_id: this.transacao_selecionada.id,
+                data_pagamento: this.data_pagamento
             }
 
             axios
                 .post(`/user/transacoes_aguardando/confirmar`, data)
                 .then((response) => {
 
+                    this.isLoading = false;
+
                     this.showSuccessMessage("Pagamento confirmado!");
 
-                    let indice = this.findTransaction(transacao.id);
-
-                    console.log("INDICE - " + indice);
+                    let indice = this.findTransaction(this.transacao_selecionada.id);
 
                     if (indice >= 0) {
                         const element = this.aux_transacoes.splice(indice, 1)[0];
-                        console.log(element);
                     }
 
                 })
                 .catch((error) => {
-                    this.showErrorMessageWithButton("Ops..", error.response.data);
-                    console.log(error.response.data);
+                    this.showErrorMessageWithButton("Ops..", error);
+                    console.log(error);
                 });
         },
 

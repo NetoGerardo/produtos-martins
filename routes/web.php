@@ -28,6 +28,9 @@ Route::group(['middleware' => ['role:user']], function () {
         Route::get('/transacoes_aguardando', [App\Http\Controllers\User\TransacoesAguardandoController::class, 'index']);
 
         // RELATÓRIO SEARCH
+        Route::post('/transacoes_recorrentes/update', [App\Http\Controllers\User\TransacaoRecorrenteController::class, 'update']);
+
+        // RELATÓRIO SEARCH
         Route::post('/transacoes_recorrentes/delete', [App\Http\Controllers\User\TransacaoRecorrenteController::class, 'delete']);
 
         // RELATÓRIO SEARCH

@@ -175,6 +175,9 @@
                     <th> Projeto </th>
                     <th> Valor </th>
                     <th> Tag </th>
+                    <th> Tipo </th>
+                    <th> Data Pagamento </th>
+                    <th> Ações </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -190,6 +193,16 @@
                     </td>
                     <td v-if="transacao.tipo == 'SAIDA'">
                       <div class="badge badge-outline-danger">Saída</div>
+                    </td>
+                    <td data-label="Data">
+                      {{ formatDate(transacao.created_at) }}
+                    </td>
+
+                    <td>
+                      <button @click="deletarTransacao(transacao)" type="button" class="btn btn-danger btn-sm">
+                        Deletar
+                        <i class="fa fa-trash"></i>
+                      </button>
                     </td>
                   </tr>
                 </tbody>
@@ -267,6 +280,58 @@ export default {
 
     },
 
+    deletarTransacao(transacao) {
+      this.$swal
+        .fire({
+          title: "<h2 style='color:#616060'>Deseja deletar esta transação</h2>",
+          text: "Voce nao poderá reverter essa operação!",
+          icon: "warning",
+          padding: '1.5em',
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Sim, quero deletar!",
+        })
+        .then(result => {
+          if (result.value) {
+            this.deletar(transacao);
+          }
+        });
+    },
+
+
+    deletar(transacao) {
+
+      let data = {
+        transacao_id: transacao.id
+      }
+
+      axios
+        .post(`/user/transacoes_aguardando/delete`, data)
+        .then((response) => {
+
+          this.showSuccessMessage("Transação deletada!");
+
+          let indice = this.findTransaction(transacao.id);
+
+          if (indice >= 0) {
+            const element = this.aux_transacoes.splice(indice, 1)[0];
+            console.log(element);
+          }
+
+        })
+        .catch((error) => {
+          this.showErrorMessageWithButton("Ops..", error.response.data);
+          console.log(error.response.data);
+        });
+    },
+
+    findTransaction(id) {
+      let user = this.aux_transacoes.findIndex(element => element['id'] == id);
+
+      return user;
+    },
+
     somarTransacoes() {
 
       let total = 0;
@@ -340,7 +405,7 @@ export default {
     },
 
     formatDate(date) {
-      return moment(date).format("DD/MM/YYYY HH:mm:ss");
+      return moment(date).format("DD/MM/YYYY");
     },
 
     formatSelectedDate(date) {

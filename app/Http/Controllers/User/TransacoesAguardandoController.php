@@ -90,6 +90,7 @@ class TransacoesAguardandoController extends Controller
 
         $transacao = Transacao::find($request->transacao_id);
         $transacao->transacao_paga = 1;
+        $transacao->created_at = $request->data_pagamento;
         $transacao->save();
 
         return response()->json([

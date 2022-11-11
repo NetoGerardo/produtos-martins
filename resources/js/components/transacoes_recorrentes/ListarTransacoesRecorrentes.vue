@@ -9,7 +9,7 @@
                         <th style="width: 25%">Data da criação</th>
                         <th style="width: 25%">Tipo</th>
                         <th style="width: 25%">Valor</th>
-                        <th style="width: 12%">Detalhes</th>
+                        <th style="width: 12%">Gerenciar</th>
                         <th style="width: 13%">Deletar</th>
                     </tr>
                 </thead>
@@ -24,7 +24,7 @@
                         <td>
                             <button data-toggle="modal" data-target="#detalhes-modal"
                                 @click="show(transacao_recorrente)" type="button" class="btn btn-primary btn-sm">
-                                Detalhes
+                                Gerenciar
                             </button>
                         </td>
                         <td>
@@ -52,20 +52,32 @@
                             <br />
                             <div class="form-group">
                                 <label for="email">Nome</label>
-                                <input readonly="true" style="background-color: black" class="form-control" id="nome"
-                                    type="text" v-model="transacao_recorrente_selecionada.nome" autocomplete="name" />
+                                <input style="background-color: black" class="form-control" id="nome" type="text"
+                                    v-model="transacao_recorrente_selecionada.nome" autocomplete="name" />
                             </div>
                             <div class="form-group">
                                 <label for="email">Valor</label>
-                                <input readonly="true" style="background-color: black" class="form-control" id="nome"
-                                    type="text" v-model="transacao_recorrente_selecionada.valor" autocomplete="name" />
+                                <input style="background-color: black" class="form-control" id="nome" type="text"
+                                    v-model="transacao_recorrente_selecionada.valor" autocomplete="name" />
                             </div>
                             <div class="form-group">
                                 <label for="email">Descrição</label>
-                                <input readonly="true" style="background-color: black" class="form-control" id="nome"
-                                    type="text" v-model="transacao_recorrente_selecionada.descricao"
-                                    autocomplete="name" />
+                                <input style="background-color: black" class="form-control" id="nome" type="text"
+                                    v-model="transacao_recorrente_selecionada.descricao" autocomplete="name" />
                             </div>
+
+                            <div class="form-group">
+                                <label for="user_type">Tag</label>
+                                <select style="background-color: black; color: white; border-color: white;"  class="form-control" id="user_type" v-model="transacao_recorrente_selecionada.tag">
+                                    <option value="Transação de Venda">Transação de Venda</option>
+                                    <option value="Novo Contrato">Novo Contrato</option>
+                                    <option value="Saque">Saque</option>
+                                    <option value="Custos operacionais">Custos operacionais</option>
+                                    <option value="Pagamento de contas">Pagamento de contas</option>
+                                    <option value="Pagamento de parceiros">Pagamento de parceiros</option>
+                                </select>
+                            </div>
+
                             <div class="form-group">
                                 <label for="email">Data de criação</label>
                                 <input readonly="true" style="background-color: black" class="form-control" id="nome"
@@ -74,12 +86,17 @@
 
                             <div class="form-group">
                                 <label for="email">Próxima transação</label>
-                                <input readonly="true" style="background-color: black" class="form-control" id="nome"
-                                    type="text" :value="formatDate(transacao_recorrente_selecionada.created_at)" />
+                                <input style="background-color: black" class="form-control" id="nome"
+                                    type="text"
+                                    :value="formatDate(transacao_recorrente_selecionada.data_proxima_transacao)" />
                             </div>
 
                             <button class="btn btn-primary btn-flat" data-dismiss="modal">
                                 Voltar <i class="fa fa-search"></i>
+                            </button>
+
+                            <button class="btn btn-success btn-flat" @click="update()">
+                                Salvar <i class="fa fa-search"></i>
                             </button>
                         </div>
                     </div>
@@ -184,23 +201,21 @@ export default {
             }
         },
 
-        create() {
+        update() {
             this.isLoading = true;
 
             let data = {
-                nome: this.nome,
+                id: this.transacao_recorrente_selecionada.id,
+                nome: this.transacao_recorrente_selecionada.nome,
+                descricao: this.transacao_recorrente_selecionada.descricao,
+                tag: this.transacao_recorrente_selecionada.tag,
+                valor: this.transacao_recorrente_selecionada.valor,
             };
 
-            console.log("CRIANDO");
-            console.log(data);
-
             axios
-                .post(`/user/categorias/store`, data)
+                .post(`/user/transacoes_recorrentes/update`, data)
                 .then((response) => {
-                    console.log("Usuário criado!");
-                    console.log(response);
-
-                    this.showSuccessMessage("Usuário criado!");
+                    this.showSuccessMessage("Transação atualizada!");
 
                     window.location.reload();
                 })
